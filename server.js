@@ -12,6 +12,7 @@ app.get('/getCountry', (req, res) => {
 });
 
 app.get("/calculateDistance", (req, res) => {
+  console.log(req.param.origin, req.param.destination)
   distance.get({
       origin: req.param.origin,
       destination: req.param.destination
