@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const distance = require('google-distance');
-
+distance.apiKey = 'AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM'
 //Route setup
 app.get('/getCountry', (req, res) => {
 
