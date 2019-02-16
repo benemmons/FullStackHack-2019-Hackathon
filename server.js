@@ -8,14 +8,18 @@ distance.apiKey = 'AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM'
 //Route setup
 app.get('/getCountry', (req, res) => {
   const csvFilePath='data/countryCodes.csv'
-  req.param("origin")
+  inputCode = req.param("countryCode")
   csv()
   .fromFile(csvFilePath)
-  .then((jsonObj)=>{
-      console.log(jsonObj);
+  .then((countryCodes)=>{
+      countryCodes.forEach((countryCode => {
+        if (countryCode["Code"] == inputCode){
+          res.send(countryCode["Country"]);
+        }
+      }))
   })
 
-  res.send('root route');
+  
 });
 
 app.get("/calculateDistance", (req, res) => {
