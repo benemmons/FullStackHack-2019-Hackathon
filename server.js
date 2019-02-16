@@ -13,8 +13,8 @@ app.get('/getCountry', (req, res) => {
 
 app.get("/calculateDistance", (req, res) => {
   distance.get({
-      origin: req.query.origin,
-      destination: req.query.destination
+      origin: req.param.origin,
+      destination: req.param.destination
     },
     function (err, data) {
       if (err) return console.log(err);
