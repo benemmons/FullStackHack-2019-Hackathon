@@ -13,7 +13,7 @@ app.get('/getCountry', (req, res) => {
   .fromFile(csvFilePath)
   .then((countryCodes)=>{
       countryCodes.forEach((countryCode => {
-        if (countryCode["Code"] == inputCode){
+        if (parseInt(countryCode["Code"]) == parseInt(inputCode)){
           res.send(countryCode["Country"]);
         }
       }))
