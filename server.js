@@ -33,7 +33,7 @@ app.get("/calculateDistance", (req, res) => {
   }, function(err, response) {
     if (!err) {
       console.log(response.json)
-      res.send(response.json)
+      res.send(response.json.results[0].geometry.location)
     }
     if (err){
       console.log(err)
