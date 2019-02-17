@@ -41,6 +41,9 @@ app.get("/calculateDistance", (req, res) => {
 
           originPoint = new GeoPoint(coords.origin.lng, coords.origin.lat);
           destinationPoint = new GeoPoint(coords.destination.lng, coords.destination.lat);
+          console.log(originPoint)
+          console.log(destinationPoint)
+          console.log(originPoint.distanceTo(destinationPoint, true))
           res.send(originPoint.distanceTo(destinationPoint, true))
         }
         if (secondError) {
