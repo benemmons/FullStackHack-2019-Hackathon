@@ -38,8 +38,8 @@ app.get("/calculateDistance", (req, res) => {
         address: req.param("origin")
       }, function (secondError, originResponse) {
         if (!secondError) {
-          console.log(destinationCoords, originCoords)
           originCoords = originResponse.json.results[0].geometry.location
+          console.log(destinationCoords, originCoords)
           res.send(destinationCoords, originCoords)
         }
         if (secondError) {
