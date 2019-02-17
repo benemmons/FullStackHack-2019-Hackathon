@@ -7,7 +7,7 @@ const csv=require('csvtojson')
 const googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM'
 });
-const GeoPoint = require('geopoint'),
+const GeoPoint = require('geopoint')
 
 //Route setup
 app.get('/getCountry', (req, res) => {
