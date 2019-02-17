@@ -1,40 +1,100 @@
-<!doctype html>
-
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+    <link rel="stylesheet" type="text/css" href="CSS/bulma.min.css">
+    <script src="js/quagga.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/script.js"></script>
 
-    <title>EcoTrace</title>
-    <meta name="description" content="EcoTrace">
-    <meta name="author" content="SitePoint">
-
-    <link rel="stylesheet" href="css/bulma.min.css">
-    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
-    <div class="columns">
-        <div class="column is-one-fifth">
-            <div class="box" id="menu">
-                <div class="container">
-                    <figure class="image is-128x128">
-                        <img src="assets/logo.png">
-                    </figure>
-                    <h1 class="title is-1">EcoTrace</h1>
-                    <p>Slogan</p>
+    <div id="app">
+
+
+        <section class="main-content columns is-fullheight">
+
+            <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
+                <div class="box" id="titleContainer">
+                    <img id="logo" src="assets/logo.png">
+                    <h1 class="title" id="logoHeader">EcoTrace</h1>
+                    <h2 class="subtitle">Add the subtitle here.</h2>
+                    <button class="button is-success" id="scanButton" onclick="displayBarcodeCard()">Scan Barcode</button>
+                </div>
+
+
+            </aside>
+
+            <div class="container column is-10">
+                <div class="section">
+
+                    <div class="card is-hidden" id="mapCard">
+                        <div class="card-header">
+                            <p class="card-header-title">Map</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <div id="map"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="card is-hidden" id="dataCard">
+                        <div class="card-header">
+                            <p class="card-header-title">Data</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">Content</div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="card is-hidden" id="barcodeCard">
+                        <div class="card-header">
+                            <p class="card-header-title">Barcode</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="content" id="barcodeCardContent"></div>
+                        </div>
+                    </div>
+                    <br />
 
                 </div>
             </div>
-        </div>
-        <div class="column is-four-fifths" id="content">
-            <h1>Content</h1>
-        </div>
+
+        </section>
+
+      
+        <footer class="footer is-hidden">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <p>Hello</p>
+                </div>
+            </div>
+            <script>
+                var map;
+                function initMap() {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude},
+                        zoom: 8
+                    });
+                
+                })}
+              </script>
+          
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM&callback=initMap"
+            async defer></script>
+
+        </footer>
+
     </div>
-
-
-    <script src="js/scripts.js"></script>
 </body>
 
 </html>
