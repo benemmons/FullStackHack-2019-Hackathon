@@ -2,7 +2,7 @@ function displayMapCard(destinationCoords) {
     document.getElementById("mapCard").classList.remove("is-hidden");
     navigator.geolocation.getCurrentPosition(function(currentCoords) {
         console.log(currentCoords, destinationCoords)
-    }
+    })
 
 
 }
@@ -95,6 +95,9 @@ function displayBarcodeCard() {
                     })
                     .then(function (response) {
                         console.log(response);
+                        displayMapCard(country.data.coords);
+                        displayDataCard();
+                
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -111,8 +114,6 @@ function displayBarcodeCard() {
                 // always executed
             });
 
-        displayMapCard(country.data.coords);
-        displayDataCard();
     })
 
 };
