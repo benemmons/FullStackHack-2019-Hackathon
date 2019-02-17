@@ -18,7 +18,16 @@ app.get('/getCountry', (req, res) => {
     .then((countryCodes) => {
       countryCodes.forEach((countryCode => {
         if (parseInt(countryCode["Code"]) == parseInt(inputCode)) {
-          res.send(countryCode["Country"]);
+          country = countryCode["Country"]
+          googleMapsClient.geocode({
+            address: req.param("destination")
+          }, function (firstError, countryCoords) {
+            if (!firstError) {
+              destinationCoords = destinationResponse.json.results[0].geometry.location
+        
+              res.send({"name": countryCode["Country"], "coords": countryCoords});
+            
+            }})
         }
       }))
     })
