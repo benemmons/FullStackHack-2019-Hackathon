@@ -1,11 +1,41 @@
+function initMap(){
+    var map;
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude},
+            zoom: 8
+        });
+
+        
+    })
+}
+
 function displayMapCard(destinationCoords) {
     document.getElementById("mapCard").classList.remove("is-hidden");
+    
     navigator.geolocation.getCurrentPosition(function(currentCoords) {
-        console.log(currentCoords, destinationCoords)
+        currentCoords = {"lat": currentCoords.coords.latitude, "lng": currentCoords.coords.longitude}
+        console.log("Current:", currentCoords, "Destination:", destinationCoords)
+        var currentMarker = new google.maps.Marker({
+            position: currentCoords,
+            map: map,
+            title: 'Current'
+          });
+          var destinationMarker = new google.maps.Marker({
+            position: destinationCoords,
+            map: map,
+            title: 'Destination'
+          });
+          currentMarker.setMap(map);
+          destinationMarker.setMap(map);
     })
 
-
 }
+    
+
 
 
 function displayDataCard() {
