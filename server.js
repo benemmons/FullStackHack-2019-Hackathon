@@ -1,36 +1,79 @@
 const express = require('express');
+var cors = require('cors');
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
-const csv=require('csvtojson')
+const csv = require('csvtojson')
+const googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM'
+});
+const GeoPoint = require('geopoint')
 
-const distance = require('google-distance');
-distance.apiKey = 'AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM'
 //Route setup
 app.get('/getCountry', (req, res) => {
-  const csvFilePath='data/countryCodes.csv'
+  const csvFilePath = 'data/countryCodes.csv'
   inputCode = req.param("countryCode")
   csv()
-  .fromFile(csvFilePath)
-  .then((countryCodes)=>{
+    .fromFile(csvFilePath)
+    .then((countryCodes) => {
       countryCodes.forEach((countryCode => {
-        if (parseInt(countryCode["Code"]) == parseInt(inputCode)){
-          res.send(countryCode["Country"]);
+        if (parseInt(countryCode["Code"]) == parseInt(inputCode)) {
+          country = countryCode["Country"]
+          googleMapsClient.geocode({
+            address: country
+          }, function (firstError, countryCoords) {
+            console.log(firstError, countryCoords)
+            if (!firstError) {
+              countryCoords = countryCoords.json.results[0].geometry.location
+        
+              res.send({"name": countryCode["Country"], "coords": countryCoords});
+            
+            }})
         }
       }))
-  })
+    })
 
-  
+
 });
 
 app.get("/calculateDistance", (req, res) => {
-  distance.get({
-      origin: req.param("origin"),
-      destination: req.param("destination")
-    },
-    function (err, data) {
-      if (err) return console.log(err);
-      res.send(data);
-    });
+  googleMapsClient.geocode({
+    address: req.param("destination")
+  }, function (firstError, destinationResponse) {
+    if (!firstError) {
+      destinationCoords = destinationResponse.json.results[0].geometry.location
+      if (req.param("destination").toLowerCase()  == "china"){
+        destinationCoords = {"lat": 39.9075 , "lng": 116.3972}
+      }
+      if (req.param("destination").toLowerCase()  == "united states"){
+        destinationCoords = {"lat": 40.730610, "lng": -73.935242}
+      }
+      googleMapsClient.geocode({
+        address: req.param("origin")
+      }, function (secondError, originResponse) {
+        if (!secondError) {
+          originCoords = originResponse.json.results[0].geometry.location
+          coords = {"destination": destinationCoords, "origin": originCoords}
+
+          originPoint = new GeoPoint(coords.origin.lng, coords.origin.lat);
+          destinationPoint = new GeoPoint(coords.destination.lng, coords.destination.lat);
+          console.log(originPoint)
+          console.log(destinationPoint)
+          console.log(originPoint.distanceTo(destinationPoint, true))
+          res.send({"distance": originPoint.distanceTo(destinationPoint, true)})
+        }
+        if (secondError) {
+          console.log(secondError)
+        }
+      });
+
+    }
+    if (firstError) {
+      console.log(firstError)
+    }
+  });
+
+
 })
 
 //Start server

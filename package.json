@@ -4,8 +4,11 @@
   "description": "Node.js Express backend for interaction with mongodb.",
   "main": "server.js",
   "dependencies": {
+    "@google/maps": "^0.5.5",
+    "cors": "^2.8.5",
     "csvtojson": "^2.0.8",
     "express": "^4.16.4",
+    "geopoint": "^1.0.1",
     "google-distance": "^1.0.1",
     "mongodb": "^3.1.13"
   },
