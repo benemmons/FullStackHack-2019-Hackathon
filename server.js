@@ -24,7 +24,7 @@ app.get('/getCountry', (req, res) => {
           }, function (firstError, countryCoords) {
             console.log(firstError, countryCoords)
             if (!firstError) {
-              destinationCoords = destinationResponse.json.results[0].geometry.location
+              countryCoords = countryCoords.json.results[0].geometry.location
         
               res.send({"name": countryCode["Country"], "coords": countryCoords});
             
