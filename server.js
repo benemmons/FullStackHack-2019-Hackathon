@@ -20,7 +20,7 @@ app.get('/getCountry', (req, res) => {
         if (parseInt(countryCode["Code"]) == parseInt(inputCode)) {
           country = countryCode["Country"]
           googleMapsClient.geocode({
-            address: req.param("destination")
+            address: country
           }, function (firstError, countryCoords) {
             console.log(firstError, countryCoords)
             if (!firstError) {
