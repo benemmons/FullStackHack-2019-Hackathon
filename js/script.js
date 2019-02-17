@@ -87,7 +87,7 @@ function displayBarcodeCard() {
                 axios.get('https://salty-harbor-91858.herokuapp.com/calculateDistance', {
                         params: {
                             origin: "england",
-                            destination: country
+                            destination: country.data
                         }
                     })
                     .then(function (response) {
