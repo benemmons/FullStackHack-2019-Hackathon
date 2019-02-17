@@ -4,9 +4,11 @@ const app = express();
 app.use(cors()); 
 const port = process.env.PORT || 5000;
 const csv=require('csvtojson')
+const googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM'
+});
+const GeoPoint = require('geopoint'),
 
-const distance = require('google-distance');
-distance.apiKey = 'AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM'
 //Route setup
 app.get('/getCountry', (req, res) => {
   const csvFilePath='data/countryCodes.csv'
@@ -25,14 +27,16 @@ app.get('/getCountry', (req, res) => {
 });
 
 app.get("/calculateDistance", (req, res) => {
-  distance.get({
-      origin: req.param("origin"),
-      destination: req.param("destination")
-    },
-    function (err, data) {
-      if (err) return console.log(err);
-      res.send(data);
-    });
+  
+  googleMapsClient.geocode({
+    address: req.param("destination")
+  }, function(err, response) {
+    if (!err) {
+      console.log(response.json.results);
+    }
+  });
+
+
 })
 
 //Start server
