@@ -27,12 +27,16 @@ app.get('/getCountry', (req, res) => {
 });
 
 app.get("/calculateDistance", (req, res) => {
-  
+  console.log(req.param("destination"))
   googleMapsClient.geocode({
     address: req.param("destination")
   }, function(err, response) {
     if (!err) {
+      console.log(response)
       res.send(response.json.results.geometry.location.lat, response.json.results.geometry.location.long)
+    }
+    if (err){
+      console.log(err)
     }
   });
 
