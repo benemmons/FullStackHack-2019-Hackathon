@@ -1,0 +1,52 @@
+html, body, #app {
+    height: 100%;
+  }
+  #app {
+    min-height: 100%;
+    //display: flex;
+    //flex-direction: column;
+  }
+  .main-content {
+    //flex: 1;
+  }
+  .footer {
+    margin-top: -12px;
+  }
+  @media screen and (max-width: 768px) {
+    #menu-toggle:checked + .nav-menu {
+      display: block;
+    }
+  }
+
+#titleContainer{
+    text-align: center;
+}
+
+#logo{
+    width: 80%;
+}
+
+#map {
+  height: 100%;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#actions {
+  padding-top: 10%
+}
+
+html { 
+  background: url(https://unsplash.com/photos/71hQxE-Sfvg/download?force=true) no-repeat center center fixed; 
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+#productWeight{
+  margin-bottom: 3%;
+}
