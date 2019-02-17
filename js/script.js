@@ -1,16 +1,20 @@
+map = ""
 function initMap(){
-    var map;
     navigator.geolocation.getCurrentPosition(function(position) {
 
         map = new google.maps.Map(document.getElementById('map'), {
             center: {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude},
-            zoom: 8
+            zoom: 2
         });
 
         
     })
+}
+
+function displaySimilarCard(){
+    document.getElementById("similarCard").classList.remove("is-hidden");
 }
 
 function displayMapCard(destinationCoords) {
@@ -18,6 +22,8 @@ function displayMapCard(destinationCoords) {
     
     navigator.geolocation.getCurrentPosition(function(currentCoords) {
         currentCoords = {"lat": currentCoords.coords.latitude, "lng": currentCoords.coords.longitude}
+        currentCoords = new google.maps.LatLng(currentCoords.lat, currentCoords.lng)
+        destinationCoords = new google.maps.LatLng(destinationCoords.lat, destinationCoords.lng)
         console.log("Current:", currentCoords, "Destination:", destinationCoords)
         var currentMarker = new google.maps.Marker({
             position: currentCoords,
@@ -29,8 +35,16 @@ function displayMapCard(destinationCoords) {
             map: map,
             title: 'Destination'
           });
-          currentMarker.setMap(map);
-          destinationMarker.setMap(map);
+          var flightPath = new google.maps.Polyline({
+            map: map,
+            path: [currentCoords, destinationCoords],
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+          });
+        
+        
     })
 
 }
@@ -38,10 +52,12 @@ function displayMapCard(destinationCoords) {
 
 
 
-function displayDataCard() {
+function displayDataCard(distance) {
     document.getElementById("dataCard").classList.remove("is-hidden");
+    document.getElementById("bottomColumns").classList.remove("is-hidden");
 
-
+    document.getElementById("airkmVal").innerText = distance
+    document.getElementById("carbonEmmisionsVal").innerText = distance / 8023
 }
 
 
@@ -124,10 +140,9 @@ function displayBarcodeCard() {
                         }
                     })
                     .then(function (response) {
-                        console.log(response);
                         displayMapCard(country.data.coords);
-                        displayDataCard();
-                
+                        displayDataCard(parseInt(response.data.distance));
+                        displaySimilarCard()
                     })
                     .catch(function (error) {
                         console.log(error);

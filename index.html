@@ -22,15 +22,22 @@
                     <h1 class="title" id="logoHeader">EcoTrace</h1>
                     <h2 class="subtitle">Add the subtitle here.</h2>
                     <p>
-                        EcoTrace enables the user to view the environmental impact the products they buy have, and offer more eco-friendly alternatives. The user simply has to scan a barcode with their webcam or phone camera, and information about the origin of the product, alongside a map of the journey that the product has been on to arrive at the store, reducing CO2 emissions significantly.
-                        </p>
-                    <button class="button is-success" id="scanButton" onclick="displayBarcodeCard()">Scan Barcode</button>
+                        EcoTrace enables the user to view the environmental impact the products they buy have, and
+                        offer more eco-friendly alternatives. The user simply has to scan a barcode with their webcam
+                        or phone camera, and information about the origin of the product, alongside a map of the
+                        journey that the product has been on to arrive at the store, reducing CO2 emissions
+                        significantly.
+                    </p>
+                    <div id="actions">
+                        <input class="input" type="text" id="productWeight" placeholder="Product Weight (Optional)">
+                        <button class="button is-success" id="scanButton" onclick="displayBarcodeCard()">Scan Barcode</button>
+                    </div>
                 </div>
 
 
             </aside>
 
-            <div class="container column is-10">
+            <div class="container column is-9">
                 <div class="section">
 
                     <div class="card is-hidden" id="mapCard">
@@ -45,12 +52,51 @@
                     </div>
                     <br />
 
-                    <div class="card is-hidden" id="dataCard">
-                        <div class="card-header">
-                            <p class="card-header-title">Data</p>
+                    <div class="columns is-hidden" id="bottomColumns">
+                        <div class="container column is-half">
+                            <div class="card " id="dataCard">
+                                <div class="card-header">
+                                    <p class="card-header-title">Data</p>
+                                </div>
+                                <div class="card-content">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Air Kilometres</th>
+                                                <th>Carbon Emmisions (tonnes)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="airkmVal">129</td>
+                                                <td id="carbonEmmisionsVal">31</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <div class="content">Content</div>
+                        <div class="container column is-half">
+                            <div class="card is-hidden" id="similarCard">
+
+                                <div class="card-header">
+                                    <p class="card-header-title">Similar Products</p>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        *Similar Products here - ran out of time*
+
+                                    </div>
+                                </div>
+                                <footer class="card-footer">
+                                        <a href="#" class="card-footer-item">Buy</a>
+                                        <a href="#" class="card-footer-item">Edit</a>
+                                        <a href="#" class="card-footer-item">Delete</a>
+                                </footer>
+                            </div>
+
                         </div>
                     </div>
                     <br />
@@ -60,7 +106,8 @@
                             <p class="card-header-title">Barcode</p>
                         </div>
                         <div class="card-content">
-                            <div class="content" id="barcodeCardContent"></div>
+                            <div class="content" id="barcodeCardContent">
+                            </div>
                         </div>
                     </div>
                     <br />
@@ -70,7 +117,7 @@
 
         </section>
 
-      
+
         <footer class="footer is-hidden">
             <div class="container">
                 <div class="content has-text-centered">
@@ -78,10 +125,10 @@
                 </div>
             </div>
             <script>
-              </script>
-          
+            </script>
+
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM&callback=initMap"
-            async defer></script>
+                async defer></script>
 
         </footer>
 
