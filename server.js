@@ -40,7 +40,7 @@ app.get("/calculateDistance", (req, res) => {
         if (!secondError) {
           originCoords = originResponse.json.results[0].geometry.location
           console.log(destinationCoords, originCoords)
-          res.send(destinationCoords, originCoords)
+          res.send({"destination": destinationCoords, "origin": originCoords})
         }
         if (secondError) {
           console.log(secondError)
