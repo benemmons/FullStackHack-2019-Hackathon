@@ -27,20 +27,21 @@ app.get('/getCountry', (req, res) => {
 });
 
 app.get("/calculateDistance", (req, res) => {
-  console.log(req.param("destination"))
   googleMapsClient.geocode({
     address: req.param("destination")
   }, function (firstError, destinationResponse) {
     if (!firstError) {
       destinationCoords = destinationResponse.json.results[0].geometry.location
-      console.log(destinationCoords)
       googleMapsClient.geocode({
         address: req.param("origin")
       }, function (secondError, originResponse) {
         if (!secondError) {
           originCoords = originResponse.json.results[0].geometry.location
-          console.log(destinationCoords, originCoords)
-          res.send({"destination": destinationCoords, "origin": originCoords})
+          coords = {"destination": destinationCoords, "origin": originCoords}
+
+          originPoint = new GeoPoint(coords.origin.lng, coords.origin.lat);
+          destinationPoint = new GeoPoint(coords.destination.lng, coords.destination.lat);
+          res.send(originPoint.distanceTo(destinationPoint, true))
         }
         if (secondError) {
           console.log(secondError)
