@@ -33,10 +33,12 @@ app.get("/calculateDistance", (req, res) => {
   }, function (err, destinationResponse) {
     if (!err) {
       destinationCoords = destinationResponse.json.results[0].geometry.location
+      console.log(destinationCoords)
       googleMapsClient.geocode({
         address: req.param("origin")
       }, function (err, originResponse) {
         if (!err) {
+          console.log(destinationCoords, originCoords)
           originCoords = originResponse.json.results[0].geometry.location
           res.send(destinationCoords, originCoords)
         }
