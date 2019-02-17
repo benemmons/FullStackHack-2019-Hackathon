@@ -22,6 +22,7 @@ app.get('/getCountry', (req, res) => {
           googleMapsClient.geocode({
             address: req.param("destination")
           }, function (firstError, countryCoords) {
+            console.log(firstError, countryCoords)
             if (!firstError) {
               destinationCoords = destinationResponse.json.results[0].geometry.location
         
