@@ -44,7 +44,7 @@ app.get("/calculateDistance", (req, res) => {
           console.log(originPoint)
           console.log(destinationPoint)
           console.log(originPoint.distanceTo(destinationPoint, true))
-          res.send(originPoint.distanceTo(destinationPoint, true))
+          res.send({"distance": originPoint.distanceTo(destinationPoint, true)})
         }
         if (secondError) {
           console.log(secondError)
