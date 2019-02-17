@@ -1,5 +1,8 @@
-function displayMapCard() {
+function displayMapCard(destinationCoords) {
     document.getElementById("mapCard").classList.remove("is-hidden");
+    navigator.geolocation.getCurrentPosition(function(currentCoords) {
+        console.log(currentCoords, destinationCoords)
+    }
 
 
 }
@@ -87,7 +90,7 @@ function displayBarcodeCard() {
                 axios.get('https://salty-harbor-91858.herokuapp.com/calculateDistance', {
                         params: {
                             origin: "england",
-                            destination: country.data
+                            destination: country.data.name
                         }
                     })
                     .then(function (response) {
@@ -108,7 +111,7 @@ function displayBarcodeCard() {
                 // always executed
             });
 
-        displayMapCard();
+        displayMapCard(country.data.coords);
         displayDataCard();
     })
 
