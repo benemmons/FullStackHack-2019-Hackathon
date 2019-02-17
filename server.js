@@ -43,7 +43,10 @@ app.get("/calculateDistance", (req, res) => {
     if (!firstError) {
       destinationCoords = destinationResponse.json.results[0].geometry.location
       if (req.param("destination").toLowerCase()  == "china"){
-        destinationCoords = {"lng": 39.9075 , "lat": 116.3972}
+        destinationCoords = {"lat": 39.9075 , "lng": 116.3972}
+      }
+      if (req.param("destination").toLowerCase()  == "united states"){
+        destinationCoords = {"lat": 40.730610, "lng": -73.935242}
       }
       googleMapsClient.geocode({
         address: req.param("origin")
