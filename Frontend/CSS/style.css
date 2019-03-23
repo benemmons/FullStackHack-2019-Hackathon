@@ -39,13 +39,6 @@ html, body {
   padding-top: 10%
 }
 
-html { 
-  background: url(https://unsplash.com/photos/71hQxE-Sfvg/download?force=true) no-repeat center center fixed; 
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-}
 
 #productWeight{
   margin-bottom: 3%;

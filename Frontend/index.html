@@ -30,7 +30,8 @@
                     </p>
                     <div id="actions">
                         <input class="input" type="text" id="productWeight" placeholder="Product Weight (Optional)">
-                        <button class="button is-success" id="scanButton" onclick="displayBarcodeCard()">Scan Barcode</button>
+                        <button class="button is-success" id="scanButton" onclick="displayBarcodeCard()">Scan
+                            Barcode</button>
                     </div>
                 </div>
 
@@ -91,9 +92,9 @@
                                     </div>
                                 </div>
                                 <footer class="card-footer">
-                                        <a href="#" class="card-footer-item">Buy</a>
-                                        <a href="#" class="card-footer-item">Edit</a>
-                                        <a href="#" class="card-footer-item">Delete</a>
+                                    <a href="#" class="card-footer-item">Buy</a>
+                                    <a href="#" class="card-footer-item">Edit</a>
+                                    <a href="#" class="card-footer-item">Delete</a>
                                 </footer>
                             </div>
 
@@ -127,12 +128,24 @@
             <script>
             </script>
 
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM&callback=initMap"
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM&callback=initMap"
                 async defer></script>
 
         </footer>
 
     </div>
+
+    <script src="js/background-video.js"></script>
+    <link type="text/css" href="css/background-video.css" rel="stylesheet" />
+    <script>
+        new BackgroundVideo({
+            video: [{
+                file: "assets/background.mp4"
+            }]
+        });
+    </script>
+
 </body>
 
 </html>
