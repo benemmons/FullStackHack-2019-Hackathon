@@ -36,11 +36,6 @@ html, body {
     display: none;
 }
 
-.content {
-    color: #eee;
-    font-size: 1.5em;
-}
-
 .bgv-overlay {
     position: absolute;
     width: 100%;
@@ -51,8 +46,4 @@ html, body {
     background-image: none;
     background-repeat: repeat;
     z-index: -998;
-}
-
-p {
-    color: #eee;
 }

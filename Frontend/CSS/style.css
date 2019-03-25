@@ -43,3 +43,12 @@ html, body {
 #productWeight{
   margin-bottom: 3%;
 }
+
+#barcodeCard{
+  height: 80vh;
+  width: 80vh;
+}
+
+#progressBar{
+  margin-top: 2%
+}

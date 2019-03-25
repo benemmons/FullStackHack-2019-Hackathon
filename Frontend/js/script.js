@@ -13,8 +13,19 @@ function initMap(){
     })
 }
 
-function displaySimilarCard(){
-    document.getElementById("similarCard").classList.remove("is-hidden");
+function displayLabelCard(){
+    document.getElementById("labelCard").classList.remove("is-hidden");
+    document.getElementById('downloadButton').addEventListener('click', function() {
+        swal("File Name:", {
+            content: "input",
+          })
+          .then((value) => {
+            downloadCanvas('myCanvas', value+".png");
+          });
+        
+    }, false);
+    
+    makeLabel()
 }
 
 function displayMapCard(destinationCoords) {
@@ -61,8 +72,10 @@ function displayDataCard(distance) {
 }
 
 
+
 function displayBarcodeCard() {
-    console.log("run")
+    document.getElementById("progressBar").value = 50
+
     document.getElementById("barcodeCard").classList.remove("is-hidden")
     Quagga.init({
         inputStream: {
@@ -125,11 +138,14 @@ function displayBarcodeCard() {
 
     Quagga.onDetected(function (result) {
         var code = result.codeResult.code;
+        console.log("Code: " + code)
         Quagga.stop()
         document.getElementById("barcodeCard").classList.add("is-hidden")
+        swal("Success!", "Barcode Scanned.", "success");
+        window.setTimeout(swal.close, 2000)
         axios.get('https://salty-harbor-91858.herokuapp.com/getCountry', {
                 params: {
-                    countryCode: code.substring(0, 3),
+                    countryCode: code.substring(1, 4),
                 }
             })
             .then(function (country) {
@@ -140,9 +156,10 @@ function displayBarcodeCard() {
                         }
                     })
                     .then(function (response) {
+                        document.getElementById("progressBar").value = 100
                         displayMapCard(country.data.coords);
                         displayDataCard(parseInt(response.data.distance));
-                        displaySimilarCard()
+                        displayLabelCard()
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -162,3 +179,37 @@ function displayBarcodeCard() {
     })
 
 };
+
+function makeLabel(txtColour, bgColour){
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, 250, 75);   
+
+    ctx.fillStyle = "#" + document.getElementById("bgField").value;
+    ctx.fillRect(0, 0, 250, 75);
+
+    ctx.font = "12px Arial";
+    ctx.fillStyle = "#" + document.getElementById("txtField").value;
+
+    ctx.fillText("This product has:", 80, 25);
+    ctx.fillText("Travelled: 1035 km", 80, 45);
+    ctx.fillText("Emitted: 1.2 Tons Carbon", 80, 65);
+    // var img = document.getElementById("logo");
+    qrImg = new Image();
+    qrImg.src = 'assets/QR.png';
+    qrImg.onload = function(){
+        ctx.drawImage(qrImg, 10, 10, 60, 60);
+    }
+
+    
+}
+
+function downloadCanvas(canvasId, filename) {
+    link = document.createElement('a');
+    link.href = document.getElementById(canvasId).toDataURL();
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click()
+}
+
+

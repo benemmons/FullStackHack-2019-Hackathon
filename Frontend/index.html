@@ -6,8 +6,8 @@
     <script src="js/quagga.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/script.js"></script>
-
-
+    <script src="js/jscolor.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
                 <div class="box" id="titleContainer">
                     <img id="logo" src="assets/logo.png">
                     <h1 class="title" id="logoHeader">EcoTrace</h1>
-                    <h2 class="subtitle">Add the subtitle here.</h2>
+                    <h2 class="subtitle">Our mission for lower emissions.</h2>
                     <p>
                         EcoTrace enables the user to view the environmental impact the products they buy have, and
                         offer more eco-friendly alternatives. The user simply has to scan a barcode with their webcam
@@ -29,9 +29,9 @@
                         significantly.
                     </p>
                     <div id="actions">
-                        <input class="input" type="text" id="productWeight" placeholder="Product Weight (Optional)">
                         <button class="button is-success" id="scanButton" onclick="displayBarcodeCard()">Scan
                             Barcode</button>
+                        <progress class="progress is-success" id="progressBar" value="0" max="100">60%</progress>
                     </div>
                 </div>
 
@@ -54,7 +54,7 @@
                     <br />
 
                     <div class="columns is-hidden" id="bottomColumns">
-                        <div class="container column is-half">
+                        <div class="container column is-two-fifths">
                             <div class="card " id="dataCard">
                                 <div class="card-header">
                                     <p class="card-header-title">Data</p>
@@ -79,60 +79,103 @@
 
                             </div>
                         </div>
-                        <div class="container column is-half">
-                            <div class="card is-hidden" id="similarCard">
+                        <div class="container column is-three-fifths">
+                            <div class="card is-hidden" id="labelCard">
 
                                 <div class="card-header">
-                                    <p class="card-header-title">Similar Products</p>
+                                    <p class="card-header-title">Generate Label</p>
+                                    <div class="field is-horizontal">
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <a class="button is-primary" id="downloadButton">Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                 </div>
                                 <div class="card-content">
                                     <div class="content">
-                                        *Similar Products here - ran out of time*
+                                        <div class="columns">
+                                            <div class="column is-6">
+                                                <canvas id="myCanvas" width="250" height="75"
+                                                    style="border:1px solid #d3d3d3;">
+                                                    Your browser does not support the HTML5 canvas tag.</canvas>
 
+                                            </div>
+                                            <div class="column is-6">
+                                                <div class="columns">
+                                                    <div class="column is-four-fifths">
+                                                        <form>
+                                                            <div class="field is-horizontal">
+                                                                <label class="field-label is-small">Background:</label>
+                                                                <div class="field-body">
+                                                                    <div class="field">
+                                                                        <div class="control">
+                                                                            <input id="bgField" onchange="makeLabel()" class="input jscolor is-small"
+                                                                                type="text" placeholder="FFFFFF">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="field is-horizontal">
+                                                                <label class="field-label is-small">Text:</label>
+                                                                <div class="field-body">
+                                                                    <div class="field">
+                                                                        <div class="control">
+                                                                            <input id="txtField" onchange="makeLabel()" class="input jscolor is-small"
+                                                                                type="text" placeholder="FFFFFF">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <footer class="card-footer">
-                                    <a href="#" class="card-footer-item">Buy</a>
-                                    <a href="#" class="card-footer-item">Edit</a>
-                                    <a href="#" class="card-footer-item">Delete</a>
-                                </footer>
-                            </div>
-
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="card is-hidden" id="barcodeCard">
-                        <div class="card-header">
-                            <p class="card-header-title">Barcode</p>
-                        </div>
-                        <div class="card-content">
-                            <div class="content" id="barcodeCardContent">
                             </div>
                         </div>
                     </div>
-                    <br />
-
                 </div>
-            </div>
+                <br />
 
-        </section>
-
-
-        <footer class="footer is-hidden">
-            <div class="container">
-                <div class="content has-text-centered">
-                    <p>Hello</p>
+                <div class="card is-hidden" id="barcodeCard">
+                    <div class="card-header">
+                        <p class="card-header-title">Barcode</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content" id="barcodeCardContent">
+                        </div>
+                    </div>
                 </div>
+                <br />
+
             </div>
-            <script>
-            </script>
+    </div>
 
-            <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM&callback=initMap"
-                async defer></script>
+    </section>
 
-        </footer>
+    <footer class="footer is-hidden">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>Hello</p>
+            </div>
+        </div>
+        <script>
+        </script>
+
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSN28i2Gqi9OXVDSrrtVoxOQupSuitPsM&callback=initMap"
+            async defer></script>
+
+    </footer>
 
     </div>
 
@@ -145,7 +188,6 @@
             }]
         });
     </script>
-
 </body>
 
 </html>
